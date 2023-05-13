@@ -20,8 +20,7 @@ jobs:
         go version
     - name: get-source-code
       run: |
-        git clone https://github.com/alexeysas/test-deploymnet-app-go.git ${{ github.workspace }}/external
-
+	go version
     - name: Build code
       run: |
         export GOPATH=$HOME/go

@@ -1,0 +1,54 @@
+{
+	"metadata": {
+		"version": 2
+	},
+	"application": {
+		"name": "ng-dsl-example",
+		"language": "GOLANG",
+		"artifact_store": {
+			"repositories": null
+		}
+	},
+	"pipeline": {
+		"segments": [
+			{
+				"name": "Build",
+				"segment_type": "build",
+				"publish_attributes": {
+					"publish": true
+				},
+				"exit_actions": {},
+				"deployment_strategy": {},
+				"application_init": {},
+				"instance_tags": [
+					{
+						"name": "application.name",
+						"value": "((application.name))"
+					}
+				],
+				"cache_info": {},
+				"tasks": [
+					{
+						"name": "echo",
+						"steps": [
+							{
+								"name": "echo",
+								"definition": "echo",
+								"command": "echo ok",
+								"properties": null
+							}
+						],
+						"docker_options": {}
+					}
+				]
+			}
+		],
+		"exit_actions": {},
+		"default_properties": [],
+		"deployment_files": [],
+		"application_init": {}
+	},
+	"organization": {
+		"orgname": "SaaSTest"
+	}
+}

@@ -1,0 +1,30 @@
+name: sample-workflow
+run-name: sample-workflow
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    steps:
+    - name: init
+      run: |
+        apk add go git
+        export GOPATH=$HOME/go
+        export PATH=$PATH:$GOPATH/bin
+        go version
+    - name: get-source-code
+      run: |
+        git clone https://github.com/alexeysas/test-deploymnet-app-go.git ${{ github.workspace }}/external
+
+    - name: Build code
+      run: |
+        export GOPATH=$HOME/go
+        export PATH=$PATH:$GOPATH/bin
+        cd ${{ github.workspace }}/external
+        go build

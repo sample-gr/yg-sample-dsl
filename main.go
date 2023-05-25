@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 )
 
 func main() {
@@ -36,5 +35,5 @@ func VStrings() {
 		Secret:   "secret",
 		Password: "myawesomepassword",
 	}
-
+	fmt.Println(creds)
 }

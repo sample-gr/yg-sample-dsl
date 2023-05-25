@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"github.com/calculi-corp/log"
 )
 
 func main() {
@@ -38,5 +37,4 @@ func VStrings() {
 		Password: "myawesomepassword",
 	}
 
-	log.Infof("creds: %v", creds)
 }

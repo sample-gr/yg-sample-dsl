@@ -7,31 +7,36 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches:
-      - '**'
+      - "**"
 
 jobs:
   build:
     steps:
-      - name: action test
+      - name: action test-workflow
         uses: calculi-corp/ng-dsl-example/.cloudbees/actions/hello-action
         with:
           arg-1: |
-            Optimus Prime
+            YG-DSL-arg-1
       - name: get-source-code
         uses: cloudbees-io/checkout@v1
-        with:
-          repository: alexeysas/test-deploymnet-app-go
-          path: test-deploymnet-app-go
-      - name: Build code
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
-        timeout-minutes: 0.5
+
+      - name: Build my code
+        uses: docker://golang:1.20
         run: |
-          export GOPATH=$HOME/go
-          export PATH=$PATH:$GOPATH/bin
-          go version
-          cd ./test-deploymnet-app-go
-          go build
+          set -eo pipefail
+          echo "__________________ SETUP ENVIRONMENT __________________"
+          git config --system credential.helper '!f() { echo username=git; echo "password=${GIT_TOKEN}"; };f'
+          COVER="coverprofile.out"
+          export PATH="${PATH}:${GOPATH}/bin"
+          export GOCOVERDIR="."
+
+          echo "__________________ VERSION INFO __________________"
+          echo "Go version: $(go version)"
+          echo "Ginkgo version: $(ginkgo version)"
+
+          echo "__________________ TEST __________________"
+          ginkgo -timeout=15m -coverprofile "${COVER}" -r -v -skip-package=pb,test,vendor,mock | tee ./test.log
+
       - name: clone the workflow repo
         uses: cloudbees-io/checkout@v1
       - id: dockerconfig

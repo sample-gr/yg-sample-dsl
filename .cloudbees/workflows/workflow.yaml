@@ -10,11 +10,11 @@ on:
 jobs:
   build:
     steps:
-      - name: action test-workflow
-        uses: calculi-corp/ng-dsl-example/.cloudbees/actions/hello-action
-        with:
-          arg-1: |
-            YG-DSL-arg-1
+      # - name: action test-workflow
+      #   uses: calculi-corp/ng-dsl-example/.cloudbees/actions/hello-action
+      #   with:
+      #     arg-1: |
+      #       YG-DSL-arg-1
       - name: get-source-code
         uses: cloudbees-io/checkout@v1
 

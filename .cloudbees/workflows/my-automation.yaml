@@ -10,10 +10,10 @@ on:
 jobs:
   build:
     steps:
-      - name: action test
-        uses: calculi-corp/ng-dsl-example/.cloudbees/actions/hello-action
-        with:
-          arg-1: |
-            Optimus Prime
+      # - name: action test
+      #   uses: calculi-corp/ng-dsl-example/.cloudbees/actions/hello-action
+      #   with:
+      #     arg-1: |
+      #       Optimus Prime
       - name: get-source-code
         uses: cloudbees-io/checkout@v1

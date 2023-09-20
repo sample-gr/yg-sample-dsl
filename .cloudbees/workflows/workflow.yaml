@@ -33,6 +33,7 @@ jobs:
           go install github.com/jstemmer/go-junit-report@latest
           go install -v github.com/axw/gocov/gocov@latest
           go install -v github.com/AlekSi/gocov-xml@latest
+          export GO111MODULE=off
 
           echo "__________________ VERSION INFO __________________"
           echo "Go version: $(go version)"

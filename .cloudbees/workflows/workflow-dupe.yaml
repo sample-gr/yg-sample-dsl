@@ -1,43 +1,56 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
 name: My automation
-
 on:
   push:
     branches:
       - "**"
-
 jobs:
   build:
     steps:
-      # - name: action test-workflow
-      #   uses: calculi-corp/ng-dsl-example/.cloudbees/actions/hello-action
-      #   with:
-      #     arg-1: |
-      #       YG-DSL-arg-1
       - name: get-source-code
         uses: cloudbees-io/checkout@v1
-
       - name: Build my code
         uses: docker://golang:1.20
-        run: |
+        run: >
           set -eo pipefail
+
           echo "__________________ SETUP ENVIRONMENT __________________"
+
           git config --system credential.helper '!f() { echo username=git; echo "password=${GIT_TOKEN}"; };f'
+
           COVER="coverprofile.out"
+
           export PATH="${PATH}:${GOPATH}/bin"
+
           export GOCOVERDIR="."
 
+
           echo "__________________ INSTALL TOOLS __________________"
+
           go install github.com/onsi/ginkgo/v2/ginkgo@latest
+
           go install github.com/jstemmer/go-junit-report@latest
+
           go install -v github.com/axw/gocov/gocov@latest
+
           go install -v github.com/AlekSi/gocov-xml@latest
+
           export GO111MODULE=off
 
+
           echo "__________________ VERSION INFO __________________"
+
           echo "Go version: $(go version)"
+
           echo "Ginkgo version: $(ginkgo version)"
 
+
           echo "__________________ TEST __________________"
+
           ginkgo -timeout=15m -coverprofile "${COVER}" -r -v -skip-package=pb,test,vendor,mock | tee ./test.log
+  Deploy-env:
+    environment: pod-2-staging
+    steps:
+      - name: sayhello
+        uses: cloudbees-io/checkout@v1

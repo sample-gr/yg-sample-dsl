@@ -51,6 +51,7 @@ jobs:
           ginkgo -timeout=15m -coverprofile "${COVER}" -r -v -skip-package=pb,test,vendor,mock | tee ./test.log
   Deploy-env:
     environment: pod-2-staging
+    needs: build
     steps:
       - name: sayhello
         uses: cloudbees-io/checkout@v1

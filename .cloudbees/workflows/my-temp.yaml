@@ -1,0 +1,26 @@
+name: sample-workflow
+apiVersion: actions.cloudbees.io/v1alpha1
+kind: workflow
+
+on:
+  push:
+    branches:
+      - '**'
+jobs:
+  build:
+    steps:
+    - name: get-source-code
+      uses: docker://alpine/git:v2.36.3
+      shell: sh
+      run: |
+        git clone https://github.com/alexeysas/test-deploymnet-app-go.git
+    - name: Build code
+      uses: docker://golang:1.20.3-alpine3.17
+      shell: sh
+      run: |
+        echo "autoamation from branch"
+	export GOPATH=$HOME/go
+        export PATH=$PATH:$GOPATH/bin
+        go version
+        cd ./test-deploymnet-app-go
+        go build

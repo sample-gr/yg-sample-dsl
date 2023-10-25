@@ -16,4 +16,4 @@ jobs:
       #     arg-1: |
       #       Optimus Prime
       - name: get-source-code
-        uses: cloudbees-io/checkout@v1
+        uses: cloudbees-io/checkout@v3.53.34

@@ -1,3 +1,3 @@
 # yg-sample-dsl
 
-trigger run - 1
+trigger run - 2

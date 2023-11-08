@@ -15,5 +15,4 @@ jobs:
       #   with:
       #     arg-1: |
       #       Optimus Prime
-      - name: ""
-        uses: cloudbees-io/checkout@v1
+      - uses: cloudbees-io/checkout@v1

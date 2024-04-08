@@ -16,3 +16,8 @@ jobs:
       #     arg-1: |
       #       Optimus Prime
       - uses: cloudbees-io/checkout@v1
+      - name: echo
+        uses: docker://golang:1.20
+        run: |
+          set -eo pipefail
+          echo "trigger run - 1"
